@@ -3,8 +3,8 @@ package com.example.yana.kinopoiskhome.ui
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.yana.kinopoiskhome.R
 import com.example.yana.kinopoiskhome.data.model.Films
-import com.example.yana.kinopoiskhome.data.model.MainFilms
 import com.example.yana.kinopoiskhome.databinding.Item250FilmsBinding
 import com.squareup.picasso.Picasso
 
@@ -34,7 +34,10 @@ class KinopoiskAdapter(): RecyclerView.Adapter<KinopoiskVH>() {
 class KinopoiskVH(val binding: Item250FilmsBinding) : RecyclerView.ViewHolder(binding.root){
     fun bind(mainFilms: Films){
         val icon = mainFilms.posterUrlPreview
-        Picasso.get().load(icon).into(binding.icon250)
-        binding.tvFilms.text = mainFilms.nameRu
+        Picasso.get().load(icon).placeholder(R.drawable.ic_baseline_image_24).into(binding.icon250)
+        binding.tvFilms250.text = mainFilms.nameRu
+        binding.ratingTv250.text = mainFilms.rating.toString()
+        binding.yearTv250.text = mainFilms.year.toString()
+        binding.tvGenres.text = mainFilms.genres.joinToString(", ") { it.genre }
     }
 }
