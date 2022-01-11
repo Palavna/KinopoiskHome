@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.yana.kinopoiskhome.databinding.ActivityMainBinding
 import com.example.yana.kinopoiskhome.ui.Kinopoisk100Adapter
 import com.example.yana.kinopoiskhome.ui.KinopoiskAdapter
+import com.example.yana.kinopoiskhome.ui.details.KinoInfoActivity
 import com.example.yana.kinopoiskhome.utils.Decorator
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -12,8 +13,8 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel: MainViewModel by viewModel()
     private lateinit var binding: ActivityMainBinding
-    private val adapter by lazy { KinopoiskAdapter() }
-    private val adapter100 by lazy { Kinopoisk100Adapter() }
+    private val adapter by lazy { KinopoiskAdapter{KinoInfoActivity.openDetailsActivity(this, it.filmId, treilerFilm = String())} }
+    private val adapter100 by lazy { Kinopoisk100Adapter{KinoInfoActivity.openDetailsActivity(this, it.filmId, treilerFilm = String())} }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +24,6 @@ class MainActivity : AppCompatActivity() {
         recyclerView()
         setupViewModel()
     }
-
     private fun recyclerView(){
         binding.top250.addItemDecoration(Decorator())
         binding.top250.adapter = adapter

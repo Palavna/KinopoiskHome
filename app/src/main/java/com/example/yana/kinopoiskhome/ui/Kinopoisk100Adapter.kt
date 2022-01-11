@@ -8,13 +8,13 @@ import com.example.yana.kinopoiskhome.data.model.Films100
 import com.example.yana.kinopoiskhome.databinding.Item250FilmsBinding
 import com.squareup.picasso.Picasso
 
-class Kinopoisk100Adapter(): RecyclerView.Adapter<KinopoiskVH100>() {
+class Kinopoisk100Adapter(private val listener: (Films100) -> Unit): RecyclerView.Adapter<KinopoiskVH100>() {
 
     private val list = arrayListOf<Films100>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KinopoiskVH100 {
         val binding = Item250FilmsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return KinopoiskVH100(binding)
+        return KinopoiskVH100(binding, listener)
     }
 
     override fun onBindViewHolder(holder: KinopoiskVH100, position: Int) {
@@ -31,7 +31,7 @@ class Kinopoisk100Adapter(): RecyclerView.Adapter<KinopoiskVH100>() {
     }
 }
 
-class KinopoiskVH100(val binding: Item250FilmsBinding) : RecyclerView.ViewHolder(binding.root){
+class KinopoiskVH100(val binding: Item250FilmsBinding, private val listener: (Films100) -> Unit) : RecyclerView.ViewHolder(binding.root){
     fun bind(mainFilms: Films100){
         val icon = mainFilms.posterUrlPreview
         Picasso.get().load(icon).placeholder(R.drawable.ic_baseline_image_24).into(binding.icon250)
@@ -39,5 +39,9 @@ class KinopoiskVH100(val binding: Item250FilmsBinding) : RecyclerView.ViewHolder
         binding.ratingTv250.text = mainFilms.rating
         binding.yearTv250.text = mainFilms.year.toString()
         binding.tvGenres.text = mainFilms.genres.joinToString(", ") { it.genre }
+
+        binding.mainPoster.setOnClickListener {
+            listener.invoke(mainFilms)
+        }
     }
 }

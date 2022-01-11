@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.yana.kinopoiskhome.data.filmId.FilmsId
 import com.example.yana.kinopoiskhome.data.model.Films
 import com.example.yana.kinopoiskhome.data.model.Films100
 import com.example.yana.kinopoiskhome.data.model.MainFilms
