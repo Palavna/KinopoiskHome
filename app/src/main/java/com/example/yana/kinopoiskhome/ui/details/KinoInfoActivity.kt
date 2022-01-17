@@ -5,10 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.yana.kinopoiskhome.R
-import com.example.yana.kinopoiskhome.data.filmId.FilmsId
 import com.example.yana.kinopoiskhome.databinding.ActivityKinoInfoBinding
-import com.example.yana.kinopoiskhome.ui.Kinopoisk100Adapter
 import com.example.yana.kinopoiskhome.ui.TreilerAdapter
+import com.example.yana.kinopoiskhome.ui.treiler.TreilerActivity
 import com.example.yana.kinopoiskhome.utils.MediaPlayer
 import com.squareup.picasso.Picasso
 import org.koin.android.ext.android.inject
@@ -22,42 +21,32 @@ class KinoInfoActivity : AppCompatActivity() {
     private val treilerFilm by lazy { intent.getIntExtra(TREILER_FILM, -1) }
     private val playerContract: MediaPlayer by inject()
     private val adapterTreiler by lazy {TreilerAdapter{
-
+        TreilerActivity.open(this, it)
     }}
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityKinoInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        binding.exoPlayer.player = playerContract.init(this)
-        playerContract.play(
-            filmId.toString(),
-            this)
+
         binding.recyclerTreiler.adapter = adapterTreiler
         setupViewModel()
-
     }
 
     private fun setupViewModel() {
         viewModel.loadFilmId(filmId)
         viewModel.loadTrillerFilms(filmId)
-        viewModel.filmId.observe(this, {
-            Picasso.get().load(it.posterUrlPreview).placeholder(R.drawable.ic_baseline_image_24).into(binding.imgPoster)
-            binding.tvIdFilm.text = it.description
-            binding.rating.text = it.ratingKinopoisk.toString()
-            binding.year.text = it.year.toString()
-            binding.genres.text = it.genres.joinToString { it.genre }
+        viewModel.filmId.observe(this, {film ->
+            Picasso.get().load(film.posterUrlPreview).placeholder(R.drawable.ic_baseline_image_24).into(binding.imgPoster)
+            binding.tvIdFilm.text = film.description
+            binding.rating.text = film.ratingKinopoisk.toString()
+            binding.year.text = film.year.toString()
+            binding.genres.text = film.genres.joinToString { it.genre }
 
             viewModel.filmTreiler.observe(this, {
-                adapterTreiler.update(it.items)
+                adapterTreiler.update(it.items, film.posterUrlPreview)
             })
         })
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        playerContract.stop()
     }
 
 
