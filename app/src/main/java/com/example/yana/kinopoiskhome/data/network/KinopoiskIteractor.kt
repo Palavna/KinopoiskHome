@@ -12,6 +12,7 @@ interface KinopoiskIteractor {
     suspend fun loadTop100PopularFilms(): MainFilms<Films100>?
     suspend fun loadFilmId(id: Int): FilmsId?
     suspend fun loadTreilerFilms(id: Int): TreilerItem<Items>?
+    suspend fun searchFilms(query: String): MainFilms<Films100>?
 }
 
 
@@ -31,6 +32,10 @@ class KinopoiskIteractorImpl(private val network: KinopoiskService): KinopoiskIt
 
     override suspend fun loadTreilerFilms(id: Int): TreilerItem<Items>? {
         return network.loadTreilerFilms(id)
+    }
+
+    override suspend fun searchFilms(query: String): MainFilms<Films100>? {
+        return network.searchFilms(query)
     }
 
 }

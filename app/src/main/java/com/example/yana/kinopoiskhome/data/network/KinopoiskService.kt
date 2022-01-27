@@ -33,4 +33,9 @@ interface KinopoiskService {
     suspend fun loadTreilerFilms(
         @Path("id") id: Int
     ): TreilerItem<Items>?
+
+    @GET("v2.1/films/search-by-keyword")
+    suspend fun searchFilms(
+        @Query("keyword") query: String
+    ): MainFilms<Films100>?
 }

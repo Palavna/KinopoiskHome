@@ -5,6 +5,7 @@ import com.example.yana.kinopoiskhome.data.network.KinopoiskIteractorImpl
 import com.example.yana.kinopoiskhome.data.network.RetrofitBuilder
 import com.example.yana.kinopoiskhome.ui.details.KinoInfoViewModel
 import com.example.yana.kinopoiskhome.ui.main.MainViewModel
+import com.example.yana.kinopoiskhome.ui.search.SearchViewModel
 import com.example.yana.kinopoiskhome.utils.MediaPlayer
 import com.example.yana.kinopoiskhome.utils.MediaPlayerImpl
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -30,6 +31,7 @@ val networkModule = module {
 val viewModelModule = module {
     viewModel { MainViewModel(get()) }
     viewModel { KinoInfoViewModel(get()) }
+    viewModel { SearchViewModel(get()) }
 }
 val iteractorModules = module {
     single<KinopoiskIteractor> { KinopoiskIteractorImpl(get()) }
