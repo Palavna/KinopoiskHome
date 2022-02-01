@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.yana.kinopoiskhome.R
 import com.example.yana.kinopoiskhome.data.model.Films100
 import com.example.yana.kinopoiskhome.databinding.Item250FilmsBinding
+import com.example.yana.kinopoiskhome.utils.ratingViewBackground
 import com.squareup.picasso.Picasso
 
 class Kinopoisk100Adapter(private val listener: (Films100) -> Unit): RecyclerView.Adapter<KinopoiskVH100>() {
@@ -37,6 +38,8 @@ class KinopoiskVH100(val binding: Item250FilmsBinding, private val listener: (Fi
         Picasso.get().load(icon).placeholder(R.drawable.ic_baseline_image_24).into(binding.icon250)
         binding.tvFilms250.text = mainFilms.nameRu
         binding.ratingTv250.text = mainFilms.rating
+        binding.one1.ratingViewBackground(mainFilms.rating)
+
         binding.yearTv250.text = mainFilms.year.toString()
         binding.tvGenres.text = mainFilms.genres.joinToString(", ") { it.genre }
 

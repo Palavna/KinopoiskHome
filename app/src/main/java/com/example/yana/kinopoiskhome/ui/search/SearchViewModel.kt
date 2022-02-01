@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 
 class SearchViewModel(val iteractor: KinopoiskIteractor): ViewModel() {
 
+    val progress = MutableLiveData(true)
     val filmsLiveData = MutableLiveData<List<Films100>>()
     val handleClickEventsDebounced = debounce<String>(500, viewModelScope){
         search(it)
@@ -21,10 +22,21 @@ class SearchViewModel(val iteractor: KinopoiskIteractor): ViewModel() {
             kotlin.runCatching {
                 val result = iteractor.searchFilms(query)
                 filmsLiveData.postValue(result?.films)
+                progress.postValue(false)
                 Log.d("error", "sdfsdfsdf")
             }.onFailure {
                 Log.d("error", it.localizedMessage)
             }
         }
     }
+//    fun progressBar(){
+//        viewModelScope.launch {
+//            runCatching {
+//                progress.postValue(false)
+//            }.onFailure {
+//                Log.d("aaaaaa", "sssssss")
+//                progress.postValue(false)
+//            }
+//        }
+//    }
 }

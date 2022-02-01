@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/tihne/AndroidStudioProjects/KinopoiskHome/app/src/main/res/drawable-v24/bg_red_rating.xml" value="0.2703125" />
+        <entry key="..\:/Users/tihne/AndroidStudioProjects/KinopoiskHome/app/src/main/res/drawable-v24/bg_yellow_rating.xml" value="0.2703125" />
         <entry key="..\:/Users/tihne/AndroidStudioProjects/KinopoiskHome/app/src/main/res/drawable/bg_rating.xml" value="0.2703125" />
         <entry key="..\:/Users/tihne/AndroidStudioProjects/KinopoiskHome/app/src/main/res/drawable/bg_year.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/tihne/AndroidStudioProjects/KinopoiskHome/app/src/main/res/drawable/ic_baseline_image_24.xml" value="0.2703125" />

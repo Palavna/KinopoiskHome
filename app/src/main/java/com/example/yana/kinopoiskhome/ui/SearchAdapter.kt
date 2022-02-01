@@ -2,12 +2,14 @@ package com.example.yana.kinopoiskhome.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.yana.kinopoiskhome.R
 import com.example.yana.kinopoiskhome.data.model.Films100
-import com.example.yana.kinopoiskhome.databinding.Item250FilmsBinding
 import com.example.yana.kinopoiskhome.databinding.ItemSearchFilmsBinding
+import com.example.yana.kinopoiskhome.utils.ratingViewBackground
 import com.squareup.picasso.Picasso
+import java.lang.Exception
 
 class SearchAdapter(private val listener: (Films100) -> Unit): RecyclerView.Adapter<SearchVH>() {
 
@@ -38,6 +40,8 @@ class SearchVH(val binding: ItemSearchFilmsBinding, private val listener: (Films
         Picasso.get().load(icon).placeholder(R.drawable.ic_baseline_image_24).into(binding.icon250)
         binding.tvFilms250.text = mainFilms.nameRu
         binding.ratingTv250.text = mainFilms.rating
+        binding.one1.ratingViewBackground(mainFilms.rating)
+
         binding.yearTv250.text = mainFilms.year.toString()
         binding.tvGenres.text = mainFilms.genres.joinToString(", ") { it.genre }
 

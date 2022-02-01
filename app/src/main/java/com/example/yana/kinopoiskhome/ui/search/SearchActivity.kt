@@ -2,6 +2,7 @@ package com.example.yana.kinopoiskhome.ui.search
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.yana.kinopoiskhome.R
@@ -32,6 +33,7 @@ class SearchActivity : AppCompatActivity() {
     private fun setupViews() {
         binding.rvFilms.layoutManager = GridLayoutManager(this, 2)
         binding.rvFilms.adapter = adapterSearch
+        binding.emptyView.isVisible = binding.search.text.toString().isEmpty()
     }
 
     private fun setupViewModel() {
@@ -39,10 +41,12 @@ class SearchActivity : AppCompatActivity() {
             adapterSearch.update(it)
         })
     }
-
     private fun setupListeners(){
         binding.search.doAfterTextChanged {
             viewModel.handleClickEventsDebounced(it.toString())
+                binding.progress.isVisible = it.toString().isEmpty()
+            binding.emptyView.isVisible = it.toString().isEmpty()
+            binding.rvFilms.isVisible = it.toString().isNotEmpty()
         }
     }
 }
