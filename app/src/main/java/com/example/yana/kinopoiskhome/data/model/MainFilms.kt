@@ -6,5 +6,5 @@ data class MainFilms<T>(
     @SerializedName("pagesCount") val pagesCount: Int,
     @SerializedName("keyword") val keyword: String?,
     @SerializedName("films") val films: List<T>,
-    @SerializedName("icon") val icon : String
+    @SerializedName("icon") val icon : String?
 )

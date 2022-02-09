@@ -1,6 +1,7 @@
 package com.example.yana.kinopoiskhome
 
 import android.app.Application
+import com.example.yana.kinopoiskhome.data.prefs.SharedPreference
 import com.example.yana.kinopoiskhome.di.kinopoiskModules
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -13,5 +14,6 @@ class KinopoiskApp: Application() {
             androidContext(this@KinopoiskApp)
             kinopoiskModules
         }
+        SharedPreference.init(this)
     }
 }

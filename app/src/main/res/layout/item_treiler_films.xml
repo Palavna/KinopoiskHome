@@ -4,8 +4,8 @@
     android:id="@+id/itemTreiler"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginStart="4dp"
-    android:layout_marginEnd="4dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
     android:clickable="true"
     android:focusable="true">
 
@@ -26,6 +26,7 @@
         android:id="@+id/posterImage"
         android:layout_width="100dp"
         android:layout_height="150dp"
+        android:layout_marginTop="4dp"
         android:scaleType="centerCrop"
         android:theme="@style/den"
         app:layout_constraintStart_toStartOf="parent"

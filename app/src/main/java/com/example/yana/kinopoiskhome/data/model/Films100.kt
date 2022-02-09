@@ -6,7 +6,7 @@ data class Films100(
     @SerializedName("filmId") val filmId: Int,
     @SerializedName("nameRu") val nameRu: String,
     @SerializedName("nameEn") val nameEn: String,
-    @SerializedName("year") val year: Int,
+    @SerializedName("year") val year: String,
     @SerializedName("filmLength") val filmLength: String,
     @SerializedName("countries") val countries: List<Countries>,
     @SerializedName("genres") val genres: List<Genres>,

@@ -2,40 +2,29 @@ package com.example.yana.kinopoiskhome.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.view.isVisible
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.yana.kinopoiskhome.R
 import com.example.yana.kinopoiskhome.data.model.Films100
 import com.example.yana.kinopoiskhome.databinding.ItemSearchFilmsBinding
+import com.example.yana.kinopoiskhome.utils.diffutils.SearchDiffUtils
 import com.example.yana.kinopoiskhome.utils.ratingViewBackground
 import com.squareup.picasso.Picasso
-import java.lang.Exception
 
-class SearchAdapter(private val listener: (Films100) -> Unit): RecyclerView.Adapter<SearchVH>() {
+class SearchAdapter(private val listener: (Films100) -> Unit) :
+    PagingDataAdapter<Films100, SearchVH>(SearchDiffUtils()) {
 
-    private val list = arrayListOf<Films100>()
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchVH {
-        val binding = ItemSearchFilmsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return SearchVH(binding, listener)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        SearchVH.create(parent, listener)
 
     override fun onBindViewHolder(holder: SearchVH, position: Int) {
-        holder.bind(list[position])
-    }
-
-    override fun getItemCount(): Int {
-        return list.size
-    }
-    fun update(dailyModel: List<Films100>?) {
-        list.clear()
-        list.addAll(dailyModel ?: emptyList())
-        notifyDataSetChanged()
+        getItem(position)?.let { holder.bind(it) }
     }
 }
 
-class SearchVH(val binding: ItemSearchFilmsBinding, private val listener: (Films100) -> Unit) : RecyclerView.ViewHolder(binding.root){
-    fun bind(mainFilms: Films100){
+class SearchVH(private val binding: ItemSearchFilmsBinding, private val listener: (Films100) -> Unit) :
+    RecyclerView.ViewHolder(binding.root) {
+    fun bind(mainFilms: Films100) {
         val icon = mainFilms.posterUrlPreview
         Picasso.get().load(icon).placeholder(R.drawable.ic_baseline_image_24).into(binding.icon250)
         binding.tvFilms250.text = mainFilms.nameRu
@@ -47,6 +36,14 @@ class SearchVH(val binding: ItemSearchFilmsBinding, private val listener: (Films
 
         binding.searchPoster.setOnClickListener {
             listener.invoke(mainFilms)
+        }
+    }
+
+    companion object {
+        fun create(parent: ViewGroup, listener: (Films100) -> Unit): SearchVH {
+            val binding =
+                ItemSearchFilmsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            return SearchVH(binding, listener)
         }
     }
 }

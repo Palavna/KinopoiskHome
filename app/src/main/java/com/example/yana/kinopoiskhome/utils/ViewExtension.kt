@@ -10,7 +10,7 @@ fun ConstraintLayout.ratingViewBackground(filmRating: String?) {
     val rating = try {
         filmRating?.toDouble()
     } catch (e: Exception){
-        this.isVisible = false
+        this.isVisible = true
         0.0
     }
     if (rating != null)
@@ -19,5 +19,5 @@ fun ConstraintLayout.ratingViewBackground(filmRating: String?) {
         rating in 6.0..8.0 -> this.setBackgroundResource(R.drawable.bg_yellow_rating)
         else -> this.setBackgroundResource(R.drawable.bg_rating)
     }
-    else this.isVisible = false
+    else this.isVisible = true
 }

@@ -36,6 +36,7 @@ interface KinopoiskService {
 
     @GET("v2.1/films/search-by-keyword")
     suspend fun searchFilms(
-        @Query("keyword") query: String
+        @Query("keyword") query: String,
+        @Query("page") page: Int
     ): MainFilms<Films100>?
 }

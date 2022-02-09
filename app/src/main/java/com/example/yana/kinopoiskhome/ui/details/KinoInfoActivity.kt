@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.yana.kinopoiskhome.R
 import com.example.yana.kinopoiskhome.databinding.ActivityKinoInfoBinding
 import com.example.yana.kinopoiskhome.ui.TreilerAdapter
+import com.example.yana.kinopoiskhome.ui.main.MainActivity
+import com.example.yana.kinopoiskhome.ui.search.SearchActivity
 import com.example.yana.kinopoiskhome.ui.treiler.TreilerActivity
 import com.example.yana.kinopoiskhome.utils.MediaPlayer
 import com.squareup.picasso.Picasso
@@ -31,6 +33,7 @@ class KinoInfoActivity : AppCompatActivity() {
 
         binding.recyclerTreiler.adapter = adapterTreiler
         setupViewModel()
+        setupListeners()
     }
 
     private fun setupViewModel() {
@@ -47,6 +50,12 @@ class KinoInfoActivity : AppCompatActivity() {
                 adapterTreiler.update(it.items, film.posterUrlPreview)
             })
         })
+    }
+
+    private fun setupListeners() {
+        binding.imageBack.setOnClickListener {
+            onBackPressed()
+        }
     }
 
 
