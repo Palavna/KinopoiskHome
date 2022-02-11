@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "850020318680",
+    "project_id": "kinopoiskhome-c9a5b",
+    "storage_bucket": "kinopoiskhome-c9a5b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:850020318680:android:eb8d48753c7b4e7c6746ad",
+        "android_client_info": {
+          "package_name": "com.example.yana.kinopoiskhome"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "850020318680-0c0qd3qk6pr7rp7qick40o8v9i9cv1f6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDLxdKbdpmjYq7YdvssC4iGHS1F1k5DKU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "850020318680-0c0qd3qk6pr7rp7qick40o8v9i9cv1f6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
