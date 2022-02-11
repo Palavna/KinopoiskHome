@@ -9,9 +9,10 @@ import com.example.yana.kinopoiskhome.data.model.Films100
 import com.example.yana.kinopoiskhome.databinding.ItemSearchFilmsBinding
 import com.example.yana.kinopoiskhome.utils.diffutils.SearchDiffUtils
 import com.example.yana.kinopoiskhome.utils.ratingViewBackground
+import com.google.android.material.imageview.ShapeableImageView
 import com.squareup.picasso.Picasso
 
-class SearchAdapter(private val listener: (Films100) -> Unit) :
+class SearchAdapter(private val listener: (Films100, ShapeableImageView) -> Unit) :
     PagingDataAdapter<Films100, SearchVH>(SearchDiffUtils()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -22,7 +23,7 @@ class SearchAdapter(private val listener: (Films100) -> Unit) :
     }
 }
 
-class SearchVH(private val binding: ItemSearchFilmsBinding, private val listener: (Films100) -> Unit) :
+class SearchVH(private val binding: ItemSearchFilmsBinding, private val listener: (Films100, ShapeableImageView) -> Unit) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(mainFilms: Films100) {
         val icon = mainFilms.posterUrlPreview
@@ -35,12 +36,12 @@ class SearchVH(private val binding: ItemSearchFilmsBinding, private val listener
         binding.tvGenres.text = mainFilms.genres.joinToString(", ") { it.genre }
 
         binding.searchPoster.setOnClickListener {
-            listener.invoke(mainFilms)
+            listener.invoke(mainFilms, binding.icon250)
         }
     }
 
     companion object {
-        fun create(parent: ViewGroup, listener: (Films100) -> Unit): SearchVH {
+        fun create(parent: ViewGroup, listener: (Films100, ShapeableImageView) -> Unit): SearchVH {
             val binding =
                 ItemSearchFilmsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             return SearchVH(binding, listener)

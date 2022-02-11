@@ -7,9 +7,10 @@ import com.example.yana.kinopoiskhome.R
 import com.example.yana.kinopoiskhome.data.model.Films100
 import com.example.yana.kinopoiskhome.databinding.Item250FilmsBinding
 import com.example.yana.kinopoiskhome.utils.ratingViewBackground
+import com.google.android.material.imageview.ShapeableImageView
 import com.squareup.picasso.Picasso
 
-class Kinopoisk100Adapter(private val listener: (Films100) -> Unit): RecyclerView.Adapter<KinopoiskVH100>() {
+class Kinopoisk100Adapter(private val listener: (Films100, ShapeableImageView) -> Unit): RecyclerView.Adapter<KinopoiskVH100>() {
 
     private val list = arrayListOf<Films100>()
 
@@ -32,7 +33,7 @@ class Kinopoisk100Adapter(private val listener: (Films100) -> Unit): RecyclerVie
     }
 }
 
-class KinopoiskVH100(val binding: Item250FilmsBinding, private val listener: (Films100) -> Unit) : RecyclerView.ViewHolder(binding.root){
+class KinopoiskVH100(val binding: Item250FilmsBinding, private val listener: (Films100, ShapeableImageView) -> Unit) : RecyclerView.ViewHolder(binding.root){
     fun bind(mainFilms: Films100){
         val icon = mainFilms.posterUrlPreview
         Picasso.get().load(icon).placeholder(R.drawable.ic_baseline_image_24).into(binding.icon250)
@@ -44,7 +45,7 @@ class KinopoiskVH100(val binding: Item250FilmsBinding, private val listener: (Fi
         binding.tvGenres.text = mainFilms.genres.joinToString(", ") { it.genre }
 
         binding.mainPoster.setOnClickListener {
-            listener.invoke(mainFilms)
+            listener.invoke(mainFilms, binding.icon250)
         }
     }
 }

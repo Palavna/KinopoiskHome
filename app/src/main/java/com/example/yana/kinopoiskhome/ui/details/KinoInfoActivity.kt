@@ -32,6 +32,7 @@ class KinoInfoActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.recyclerTreiler.adapter = adapterTreiler
+        binding.imgPoster.transitionName = "image${filmId}"
         setupViewModel()
         setupListeners()
     }

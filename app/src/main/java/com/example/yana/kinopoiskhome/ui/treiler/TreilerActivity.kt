@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.webkit.*
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.isVisible
 import com.example.yana.kinopoiskhome.data.filmTriller.Items
 import com.example.yana.kinopoiskhome.databinding.ActivityTreilerBinding
@@ -68,6 +69,7 @@ class TreilerActivity : AppCompatActivity() {
         fun open(context: Context, items: Items) {
             val intent = Intent(context, TreilerActivity::class.java)
             intent.putExtra(TREILER, items)
+//            val options = ActivityOptionsCompat.makeSceneTransitionAnimation()
             context.startActivity(intent)
         }
     }

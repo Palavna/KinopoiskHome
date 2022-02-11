@@ -49,9 +49,9 @@
 
         <TextView
             android:id="@+id/rating"
-            android:layout_width="wrap_content"
+            android:layout_width="40dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="6dp"
             android:textColor="@color/black"
             android:textSize="22sp"
@@ -60,9 +60,9 @@
 
         <TextView
             android:id="@+id/year"
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="22dp"
+            android:layout_marginStart="12dp"
             android:layout_marginTop="6dp"
             android:textColor="@color/black"
             android:textSize="22sp"
@@ -73,7 +73,6 @@
             android:id="@+id/genres"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="22dp"
             android:layout_marginTop="6dp"
             android:textColor="@color/black"
             android:textSize="16sp"
