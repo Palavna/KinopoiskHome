@@ -71,13 +71,15 @@
 
         <TextView
             android:id="@+id/genres"
-            android:layout_width="250dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
             android:textColor="@color/black"
             android:textSize="16sp"
+            android:layout_marginHorizontal="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/year"
-            app:layout_constraintTop_toBottomOf="@id/imgPoster" />
+            app:layout_constraintTop_toTopOf="@id/year"
+            app:layout_constraintBottom_toBottomOf="@+id/year"/>
 
         <TextView
             android:id="@+id/tvIdFilm"

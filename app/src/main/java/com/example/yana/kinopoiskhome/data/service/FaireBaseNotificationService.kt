@@ -1,6 +1,5 @@
 package com.example.yana.kinopoiskhome.data.service
 
-import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -15,59 +14,57 @@ import com.example.yana.kinopoiskhome.R
 import com.example.yana.kinopoiskhome.ui.main.MainActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import kotlin.math.log
 
 class FaireBaseNotificationService: FirebaseMessagingService() {
 
     override fun onNewToken(p0: String) {
         super.onNewToken(p0)
-        Log.d("fghfgh", "fghfgh")
+        Log.d("TAG", "Refreshed token: $p0")
     }
 
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
-        createNotification(applicationContext, message)
+        Log.d("TAG", "Refreshed token: $message")
+        createNotification(message)
     }
 
+    fun createNotification( message: RemoteMessage) {
+        createNotificationChannel()
 
-    fun createNotification(context: Context, message: RemoteMessage) {
-        createNotificationChannel(context)
-
-        val taskStackBuilder = TaskStackBuilder.create(context)
+        val taskStackBuilder = TaskStackBuilder.create(this)
         taskStackBuilder.addParentStack(MainActivity::class.java)
-        val intent = Intent(this, MainActivity::class.java)
-        intent.putExtra("name", message.data["desc"])
-        taskStackBuilder.addNextIntentWithParentStack(intent)
+//        val intent = Intent(this, MainActivity::class.java)
+//        intent.putExtra("name", message.data["desc"])
+        taskStackBuilder.addNextIntentWithParentStack(Intent(this, MainActivity::class.java))
 
-        val builder = NotificationCompat.Builder(context, Companion.CHANNEL_ID)
+        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.film_reel)
-            .setContentTitle("Здравствуйте")
-            .setContentText("Самое время посмотреть хороший фильм!")
-            .setAutoCancel(false)
+            .setContentTitle(message.notification?.title)
+            .setContentText(message.notification?.body)
+            .setAutoCancel(true)
             .setContentIntent(taskStackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT))
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-        NotificationManagerCompat.from(this).apply {
-            notify(1, builder.build())
+            .build()
+        with(NotificationManagerCompat.from(this)){
+            notify(1, builder)
         }
 
     }
 
-
-    private fun createNotificationChannel(context: Context){
+    private fun createNotificationChannel(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            val name = context.getString(R.string.channel_name)
-            val descriptionText = context.getString(R.string.channel_description)
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(Companion.CHANNEL_ID, name, importance).apply {
+            val name = getString(R.string.channel_name)
+            val descriptionText = getString(R.string.channel_description)
+            val importance = NotificationManager.IMPORTANCE_HIGH
+            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
                 description = descriptionText
             }
             val notificationManager: NotificationManager =
-                context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
     }
 
     companion object {
-        private const val CHANNEL_ID = "CHANNEL_ID"
+        const val CHANNEL_ID = "CHANNEL_ID"
     }
 }
