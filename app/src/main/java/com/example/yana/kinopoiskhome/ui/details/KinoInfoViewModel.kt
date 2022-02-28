@@ -6,21 +6,23 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.yana.kinopoiskhome.data.filmId.FilmsId
 import com.example.yana.kinopoiskhome.data.filmTriller.Items
+import com.example.yana.kinopoiskhome.data.filmTriller.TreilerFilms
 import com.example.yana.kinopoiskhome.data.filmTriller.TreilerItem
 import com.example.yana.kinopoiskhome.data.network.KinopoiskIteractor
+import com.example.yana.kinopoiskhome.data.repository.FilmRepository
 import kotlinx.coroutines.launch
 
-class KinoInfoViewModel(val iteractor: KinopoiskIteractor): ViewModel() {
+class KinoInfoViewModel(val repository: FilmRepository): ViewModel() {
 
-    val filmId = MutableLiveData<FilmsId>()
-    val filmTreiler = MutableLiveData<TreilerItem<Items>>()
+    val filmId = MutableLiveData<FilmsId?>()
+    val filmTreiler = MutableLiveData <TreilerFilms?>()
     val treiler = MutableLiveData<TreilerItem<Items>>()
 
 
     fun loadFilmId(id: Int){
         viewModelScope.launch {
             kotlin.runCatching {
-                val filmsId = iteractor.loadFilmId(id)
+                val filmsId = repository.loadFilmsId(id)
                 filmId.postValue(filmsId)
                 Log.d("vvvvvvvvv", "nnnnnnnnnn")
             }.onFailure {
@@ -31,7 +33,7 @@ class KinoInfoViewModel(val iteractor: KinopoiskIteractor): ViewModel() {
     fun loadTrillerFilms(id: Int){
         viewModelScope.launch {
             kotlin.runCatching {
-                val  treilerFilm = iteractor.loadTreilerFilms(id)
+                val  treilerFilm = repository.loadTreilerFilms(id)
                 filmTreiler.postValue(treilerFilm)
                 Log.d("vvvvvvvvv", "nnnnnnnnnn")
             }.onFailure {

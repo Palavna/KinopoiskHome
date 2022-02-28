@@ -41,14 +41,14 @@ class KinoInfoActivity : AppCompatActivity() {
         viewModel.loadFilmId(filmId)
         viewModel.loadTrillerFilms(filmId)
         viewModel.filmId.observe(this, {film ->
-            Picasso.get().load(film.posterUrlPreview).placeholder(R.drawable.ic_baseline_image_24).into(binding.imgPoster)
-            binding.tvIdFilm.text = film.description
-            binding.rating.text = film.ratingKinopoisk.toString()
-            binding.year.text = film.year.toString()
-            binding.genres.text = film.genres.joinToString { it.genre }
+            Picasso.get().load(film?.posterUrlPreview).placeholder(R.drawable.ic_baseline_image_24).into(binding.imgPoster)
+            binding.tvIdFilm.text = film?.description
+            binding.rating.text = film?.ratingKinopoisk.toString()
+            binding.year.text = film?.year.toString()
+            binding.genres.text = film?.genres?.joinToString { it.genre }
 
             viewModel.filmTreiler.observe(this, {
-                adapterTreiler.update(it.items, film.posterUrlPreview)
+                adapterTreiler.update(it?.trailer ?: emptyList(), film?.posterUrlPreview ?: "")
             })
         })
     }

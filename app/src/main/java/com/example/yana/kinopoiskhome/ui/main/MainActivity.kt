@@ -3,25 +3,18 @@ package com.example.yana.kinopoiskhome.ui.main
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
-import com.example.yana.kinopoiskhome.data.model.MainStructureModel
+import com.example.yana.kinopoiskhome.data.model.Films
+import com.example.yana.kinopoiskhome.data.model.Films100
 import com.example.yana.kinopoiskhome.databinding.ActivityMainBinding
-import com.example.yana.kinopoiskhome.ui.Kinopoisk100Adapter
-import com.example.yana.kinopoiskhome.ui.KinopoiskAdapter
 import com.example.yana.kinopoiskhome.ui.details.KinoInfoActivity
 import com.example.yana.kinopoiskhome.ui.search.SearchActivity
-import com.example.yana.kinopoiskhome.utils.Decorator
 import com.google.android.material.imageview.ShapeableImageView
-import com.google.firebase.database.*
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.lang.reflect.Type
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainAdapterListener {
 
     private val viewModel: MainViewModel by viewModel()
     private lateinit var binding: ActivityMainBinding
@@ -45,7 +38,7 @@ class MainActivity : AppCompatActivity() {
 //            )
 //        }
 //    }
-    private val adapter by lazy { MainAdapter() }
+    private val adapter by lazy { MainAdapter(this) }
 
     fun openDetailsActivity(
         context: Context,
@@ -69,21 +62,6 @@ class MainActivity : AppCompatActivity() {
         recyclerView()
         setupViewModel()
         setupListeners()
-
-
-        val database = FirebaseDatabase.getInstance()
-        val myRef = database.getReference("message")
-        myRef.addValueEventListener(object: ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                viewModel.fromDB(snapshot)
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.d("dfgdfghdfg", "fghfghj")
-            }
-        })
-
-
 
     }
 
@@ -115,6 +93,14 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+    }
+
+    override fun clickTop100(item: Films100, view: ShapeableImageView) {
+        openDetailsActivity(applicationContext, item.filmId, "", view)
+    }
+
+    override fun clickTop250(item: Films, view: ShapeableImageView) {
+        openDetailsActivity(applicationContext, item.filmId, "", view)
     }
 //    private fun showNotification(){
 //        createNotificationChannel()

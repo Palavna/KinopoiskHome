@@ -33,7 +33,7 @@ class SearchVH(private val binding: ItemSearchFilmsBinding, private val listener
         binding.one1.ratingViewBackground(mainFilms.rating)
 
         binding.yearTv250.text = mainFilms.year.toString()
-        binding.tvGenres.text = mainFilms.genres.joinToString(", ") { it.genre }
+        binding.tvGenres.text = mainFilms.genres?.joinToString(", ") { it.genre }
 
         binding.searchPoster.setOnClickListener {
             listener.invoke(mainFilms, binding.icon250)

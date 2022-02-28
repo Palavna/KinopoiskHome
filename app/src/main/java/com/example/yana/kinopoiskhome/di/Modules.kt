@@ -1,8 +1,13 @@
 package com.example.yana.kinopoiskhome.di
 
+import androidx.room.Room
+import com.example.yana.kinopoiskhome.data.db.FilmAppDatabase
+import com.example.yana.kinopoiskhome.data.db.FilmsDao
 import com.example.yana.kinopoiskhome.data.network.KinopoiskIteractor
 import com.example.yana.kinopoiskhome.data.network.KinopoiskIteractorImpl
 import com.example.yana.kinopoiskhome.data.network.RetrofitBuilder
+import com.example.yana.kinopoiskhome.data.repository.FilmRepository
+import com.example.yana.kinopoiskhome.data.repository.FilmRepositoryImpl
 import com.example.yana.kinopoiskhome.ui.details.KinoInfoViewModel
 import com.example.yana.kinopoiskhome.ui.main.MainViewModel
 import com.example.yana.kinopoiskhome.ui.search.SearchViewModel
@@ -19,7 +24,8 @@ val kinopoiskModules by lazy {
             viewModelModule,
             iteractorModules,
             dbModule,
-            utilsModule
+            utilsModule,
+            repositoryModel
         )
     )
 }
@@ -37,16 +43,16 @@ val iteractorModules = module {
     single<KinopoiskIteractor> { KinopoiskIteractorImpl(get()) }
 }
 val dbModule = module {
-//    single { Room.databaseBuilder(get(), WeatherDataBase::class.java, "weather")
-//        .allowMainThreadQueries()
-//        .build()
-//    }
-//    single { get<WeatherDataBase>().getWeatherDao()}
+    single { Room.databaseBuilder(get(), FilmAppDatabase::class.java, "weather")
+        .allowMainThreadQueries()
+        .build()
+    }
+    single { get<FilmAppDatabase>().getFilmDao()}
 }
 val utilsModule = module {
     single<MediaPlayer> { MediaPlayerImpl() }
 }
 
-//val repositoryModel = module {
-//    single { WeatherRepository(get(), get()) }
-//}
+val repositoryModel = module {
+    single <FilmRepository> { FilmRepositoryImpl(get(), get()) }
+}

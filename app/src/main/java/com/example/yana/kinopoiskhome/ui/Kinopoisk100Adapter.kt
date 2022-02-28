@@ -42,7 +42,7 @@ class KinopoiskVH100(val binding: Item250FilmsBinding, private val listener: (Fi
         binding.one1.ratingViewBackground(mainFilms.rating)
 
         binding.yearTv250.text = mainFilms.year.toString()
-        binding.tvGenres.text = mainFilms.genres.joinToString(", ") { it.genre }
+        binding.tvGenres.text = mainFilms.genres?.joinToString(", ") { it.genre }
 
         binding.mainPoster.setOnClickListener {
             listener.invoke(mainFilms, binding.icon250)
